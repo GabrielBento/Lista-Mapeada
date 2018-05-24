@@ -141,20 +141,21 @@ public class BetterHashMap<K, V> implements Map<K, V> {
         if(buckets[index] == null)
             return false;
         
-        for(int i = 0; i < buckets[index].size(); i++){
-            if(Objects.equals(buckets[index].get(i).first, key))
+        for(Entry<K, V> t : buckets[index]){
+            if(Objects.equals(t.first, key))
                 return true;
         }
         
         return  false;
     }
     
-    public boolean containsValue(V val){
-        for(int i = 0; i < buckets.length; i++){
-            if(buckets[i] == null)
+   public boolean containsValue(V val){
+        for(List<Entry<K, V>> t : buckets){
+            if(t == null)
                 continue;
-            for (int a = 0; a < buckets[i].size(); a++) {
-                if (Objects.equals(buckets[i].get(a).second, val)) {
+            
+            for (Entry<K, V> e : t) {
+                if (Objects.equals(e.second, val)) {
                     return true;
                 }
             }
