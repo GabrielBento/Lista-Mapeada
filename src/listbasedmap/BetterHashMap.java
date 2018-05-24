@@ -106,7 +106,7 @@ public class BetterHashMap<K, V> implements Map<K, V> {
     @Override
     public V remove(K key) {
         // Ver método put
-        int hash = key.hashCode();
+        int hash = Objects.hashCode(key);
         int index = Math.abs(hash % buckets.length);
         if (buckets[index] == null) {
             return null;
@@ -125,5 +125,57 @@ public class BetterHashMap<K, V> implements Map<K, V> {
             return null;
         }
     }
+    
+    public void clear(){
+        for(int i = 0; i < buckets.length; i++){
+            if(buckets[i] == null)
+                continue;
+            buckets[i] = null;
+        }
+    }
+    
+    public boolean containsKey(K key){
+        int hash = Objects.hashCode(key);
+        int index = Math.abs(hash % buckets.length);
+        
+        if(buckets[index] == null)
+            return false;
+        
+        for(int i = 0; i < buckets[index].size(); i++){
+            if(Objects.equals(buckets[index].get(i).first, key))
+                return true;
+        }
+        
+        return  false;
+    }
+    
+    public boolean containsValue(V val){
+        for(int i = 0; i < buckets.length; i++){
+            if(buckets[i] == null)
+                continue;
+            for (int a = 0; a < buckets[i].size(); a++) {
+                if (Objects.equals(buckets[i].get(a).second, val)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public boolean isEmpty(){
+        for(int i = 0; i < buckets.length; i++){
+            if(buckets[i] == null)
+                continue;
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public V getOrDefault(K key, V def){return null;}
+
+    
+    
+    
 
 }
