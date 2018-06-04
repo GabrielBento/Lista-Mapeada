@@ -173,7 +173,11 @@ public class BetterHashMap<K, V> implements Map<K, V> {
         return true;
     }
     
-    public V getOrDefault(K key, V def){return null;}
+    public V getOrDefault(K key, V def){
+        if(!containsKey(key))
+    		return def;
+    	return get(key);
+    }
 
     
     
